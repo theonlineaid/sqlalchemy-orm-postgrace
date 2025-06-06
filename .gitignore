@@ -6,8 +6,8 @@ env/
 venv/
 *.sqlite3
 .vscode
-pgdata
-pgadmin_data
+pgdata/
+pgadmin_data/
 # Environment
 .env
 
