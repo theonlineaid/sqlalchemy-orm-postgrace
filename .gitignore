@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+env/
+venv/
+*.sqlite3
+
+# Environment
+.env
+
+# Alembic
+alembic/versions/
+
+# VSCode
+.vscode/
+
+# Docker
+*.log
+*.pid
+*.bak
+.DS_Store
+
+# OS
+Thumbs.db

@@ -1,0 +1,46 @@
+# version: '3.8'
+
+services:
+  fastapi:
+    build: .
+    container_name: dev_fastapi
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://devuser:devpass@postgres:5432/devdb
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+
+  postgres:
+    image: postgres:latest
+    container_name: dev_pg
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: dev_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${ADMIN}
+      PGADMIN_DEFAULT_PASSWORD: ${ADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  pgdata:
+  pgadmin_data:
